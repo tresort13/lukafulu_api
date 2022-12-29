@@ -1,0 +1,50 @@
+
+from django.http import HttpResponse
+from .models import Decharges
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializers import DechargeSerializer
+from datetime import datetime
+# Create your views here.
+# Register API
+
+        
+def welcom(request):
+    return HttpResponse('WELCOM TO LUKAFULU  API RESOURCES')
+
+@api_view(['POST'])   
+def dechargesInformationsEnvoi(request): 
+        localisation_decharge= request.data['localisation_decharge']
+        description_decharge= request.data['description_decharge']
+        dimension_decharge= request.data['dimension_decharge']
+        dechets_observes= request.data['dechets_observes']
+        nuisances_observees = request.data['nuisances_observees']
+        description_situation= request.data['description_situation']
+        observation= request.data['observation']
+        photo_decharge= request.data['photo_decharge']
+        geolocalisation_longitude= request.data['geolocalisation_longitude']
+        geolocalisation_latitude= request.data['geolocalisation_latitude']
+        geolocalisation_altitude = request.data['geolocalisation_altitude']
+        geolocalisation_altitudeAccuracy = request.data['geolocalisation_altitudeAccuracy']
+        geolocalisation_accuracy = request.data['geolocalisation_accuracy']
+        geolocalisation_speed= request.data['geolocalisation_speed']
+        
+        
+        
+        serializer = DechargeSerializer(data={'localisation_decharge': localisation_decharge,'description_decharge' : description_decharge,'dimension_decharge' : dimension_decharge,'dechets_observes':dechets_observes,'nuisances_observees' : nuisances_observees,'description_situation' : description_situation,'observation' : observation,'photo_decharge' : photo_decharge,'geolocalisation_longitude' : geolocalisation_longitude,'geolocalisation_latitude':geolocalisation_latitude,'geolocalisation_altitude' : geolocalisation_altitude, 'geolocalisation_altitudeAccuracy' : geolocalisation_altitudeAccuracy,'geolocalisation_accuracy':geolocalisation_accuracy,'geolocalisation_speed': geolocalisation_speed,'data_operation':str(datetime.now().date()),'date_heure_operation':str(datetime.now()),'month_year_operation':str(datetime.now().year)+"-"+"0"+str(datetime.now().month)})
+        if serializer.is_valid() :
+          serializer.save()
+          return Response(serializer.data)
+        return Response('',status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['GET'])   
+def dechargesInformations(request): 
+    try:
+        envoies_data = Decharges.objects.all()
+    except envoies_data.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+        
+    if request.method =='GET':
+            serializer = DechargeSerializer(envoies_data,many=True)
+            return Response(serializer.data)
