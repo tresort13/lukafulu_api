@@ -24,11 +24,11 @@ def dechargesInformationsEnvoi(request):
         observation= request.data['observation']
         photo_decharge= request.data['photo']
         geolocalisation_longitude= request.data['location']['coords']['longitude']
-        geolocalisation_latitude= request.data['latitude']
-        geolocalisation_altitude = request.data['altitude']
-        geolocalisation_altitudeAccuracy = request.data['altitudeAccuracy']
-        geolocalisation_accuracy = request.data['accuracy']
-        geolocalisation_speed= request.data['speed']
+        geolocalisation_latitude= request.data['latitude']['coords']['latitude']
+        geolocalisation_altitude = request.data['altitude']['coords']['altitude']
+        geolocalisation_altitudeAccuracy = request.data['altitudeAccuracy']['coords']['altitudeAccuracy']
+        geolocalisation_accuracy = request.data['accuracy']['coords']['accuracy']
+        geolocalisation_speed= request.data['speed']['coords']['speed']
         
         
         
