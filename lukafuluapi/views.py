@@ -17,22 +17,22 @@ def welcom(request):
 def dechargesInformationsEnvoi(request): 
         localisation_decharge= request.data['localisation_decharge']
         description_decharge= request.data['description_decharge']
-        dimension_decharge= request.data['dimension_decharge']
+        dimensions_decharge= request.data['dimensions_decharge']
         dechets_observes= request.data['dechets_observes']
         nuisances_observees = request.data['nuisances_observees']
         description_situation= request.data['description_situation']
         observation= request.data['observation']
-        photo_decharge= request.data['photo_decharge']
-        geolocalisation_longitude= request.data['geolocalisation_longitude']
-        geolocalisation_latitude= request.data['geolocalisation_latitude']
-        geolocalisation_altitude = request.data['geolocalisation_altitude']
-        geolocalisation_altitudeAccuracy = request.data['geolocalisation_altitudeAccuracy']
-        geolocalisation_accuracy = request.data['geolocalisation_accuracy']
-        geolocalisation_speed= request.data['geolocalisation_speed']
+        photo_decharge= request.data['photo']
+        geolocalisation_longitude= request.data['location'].coords.longitude
+        geolocalisation_latitude= request.data['location'].coords.latitude
+        geolocalisation_altitude = request.data['location'].coords.altitude
+        geolocalisation_altitudeAccuracy = request.data['location'].coords.altitudeAccuracy
+        geolocalisation_accuracy = request.data['location'].coords.accuracy
+        geolocalisation_speed= request.data['location'].coords.speed
         
         
         
-        serializer = DechargeSerializer(data={'localisation_decharge': localisation_decharge,'description_decharge' : description_decharge,'dimension_decharge' : dimension_decharge,'dechets_observes':dechets_observes,'nuisances_observees' : nuisances_observees,'description_situation' : description_situation,'observation' : observation,'photo_decharge' : photo_decharge,'geolocalisation_longitude' : geolocalisation_longitude,'geolocalisation_latitude':geolocalisation_latitude,'geolocalisation_altitude' : geolocalisation_altitude, 'geolocalisation_altitudeAccuracy' : geolocalisation_altitudeAccuracy,'geolocalisation_accuracy':geolocalisation_accuracy,'geolocalisation_speed': geolocalisation_speed,'data_operation':str(datetime.now().date()),'date_heure_operation':str(datetime.now()),'month_year_operation':str(datetime.now().year)+"-"+"0"+str(datetime.now().month)})
+        serializer = DechargeSerializer(data={'localisation_decharge': localisation_decharge,'description_decharge' : description_decharge,'dimension_decharge' : dimensions_decharge,'dechets_observes':dechets_observes,'nuisances_observees' : nuisances_observees,'description_situation' : description_situation,'observation' : observation,'photo_decharge' : photo_decharge,'geolocalisation_longitude' : geolocalisation_longitude,'geolocalisation_latitude':geolocalisation_latitude,'geolocalisation_altitude' : geolocalisation_altitude, 'geolocalisation_altitudeAccuracy' : geolocalisation_altitudeAccuracy,'geolocalisation_accuracy':geolocalisation_accuracy,'geolocalisation_speed': geolocalisation_speed,'data_operation':str(datetime.now().date()),'date_heure_operation':str(datetime.now()),'month_year_operation':str(datetime.now().year)+"-"+"0"+str(datetime.now().month)})
         if serializer.is_valid() :
           serializer.save()
           return Response(serializer.data)
