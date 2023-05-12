@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
     
@@ -10,7 +11,7 @@ class Decharges(models.Model):
     nuisances_observees = models.CharField(max_length=100,default="")
     description_situation = models.CharField(max_length=100,default="")
     observation = models.CharField(max_length=100,default="")
-    photo_decharge = models.FileField(upload_to='pictures')
+    photo_decharge = CloudinaryField('image')
     geolocalisation_longitude = models.CharField(max_length=100,default="")
     geolocalisation_latitude = models.CharField(max_length=100,default="")
     geolocalisation_altitude = models.CharField(max_length=100,default="")  

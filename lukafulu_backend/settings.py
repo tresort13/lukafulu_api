@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path,os
 import django_heroku
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -43,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'knox',
     'corsheaders',
+    'cloudinary'
 ]
 
 MIDDLEWARE = [
@@ -86,10 +90,10 @@ CORS_ALLOWED_ORIGINS = []
 DATABASES = {
 'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd5nkjt4fnsnner',
-        'USER' : 'zqtctyuflylfis',
-        'PASSWORD' : '547b1ca979c3260a7f520bf2bca541b799842175b2b71f7c9a117737b2d72fd2',
-        'HOST' : 'ec2-3-230-122-20.compute-1.amazonaws.com'
+        'NAME': 'd9kael4er2so3c',
+        'USER' : 'cstzdotjittpqj',
+        'PASSWORD' : 'c8148a973da03be2bd666a2271a268e8940f812badc576799067c54f7c8f64e3',
+        'HOST' : 'ec2-174-129-36-33.compute-1.amazonaws.com'
     }
 }
 
@@ -148,6 +152,13 @@ REST_FRAMEWORK = {
         'knox.auth.TokenAuthentication',
     ]
 }
+
+# adding config cloudinary
+cloudinary.config( 
+  cloud_name = "dxog4wdgq", 
+  api_key = "539319133665231", 
+  api_secret = "meUr2sdVUibK_F1Qkh033FVm2sw" 
+)
 
 #Activate django Heroku.
 django_heroku.settings(locals())
